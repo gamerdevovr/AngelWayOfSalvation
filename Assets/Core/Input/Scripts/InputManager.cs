@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace AngelWayOfSalvation.Core.Input
@@ -5,10 +6,17 @@ namespace AngelWayOfSalvation.Core.Input
     public class InputManager : MonoBehaviour
     {
         public Vector3 DirectionMove { get; private set; } = new Vector3(0, 0, 0);
+        public static InputManager Instance;
 
         [SerializeField] private InputJoystick _inputJoystick;
         [SerializeField] private InputKeyboard _inputKeyboard;
 
+        private void Awake()
+        {
+            if (Instance != null)
+                Destroy(Instance.gameObject);
+            Instance = this as InputManager;
+        }
 
         private void Update()
         {
