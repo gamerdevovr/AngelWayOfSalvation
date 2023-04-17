@@ -1,4 +1,6 @@
 using AngelWayOfSalvation.Core.Input;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AngelWayOfSalvation.Core.Character
@@ -8,38 +10,81 @@ namespace AngelWayOfSalvation.Core.Character
     {
         [SerializeField] private CharacterData _characterData;
 
+        public Vector3 Direction { get; private set; }
+
         private InputManager _inputManager => InputManager.Instance;
         private Rigidbody _rigidbody;
+        private Collision _collision;
         private Vector3 _normal;
+
+        private Dictionary<Type, ICharacterState> _stateMap;
+        private ICharacterState _characterState;
+
 
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            InitState();
+            SetStateByDefault();
         }
 
         private void Update()
         {
-            Vector3 direction = _inputManager.GetDirectionMove();
-            Debug.Log(direction);
+            Direction = _inputManager.GetDirectionMove();
 
-            if (Vector3.Angle(Vector3.forward, direction) > 1f || Vector3.Angle(Vector3.forward, direction) == 0)
+            if (_characterState != null)
             {
-                Vector3 direct = Vector3.RotateTowards(transform.forward, direction, _characterData.GetMoveSpeed, 0f);
-                transform.rotation = Quaternion.LookRotation(direct);
+                _characterState.UpdateState(gameObject);
+            }
+        }
+
+        private void InitState()
+        {
+            _stateMap = new Dictionary<Type, ICharacterState>();
+
+            _stateMap[typeof(IdleState)] = new IdleState();
+            _stateMap[typeof(WalkState)] = new WalkState();
+            _stateMap[typeof(RunState)] = new RunState();
+            _stateMap[typeof(AttackState)] = new AttackState();
+            _stateMap[typeof(PrayState)] = new PrayState();
+        }
+
+        private void SetState(ICharacterState newState)
+        {
+            if (_characterState != null)
+            {
+                _characterState.Exit();
             }
 
-            Vector3 directionMove = direction.normalized - Vector3.Dot(direction.normalized, _normal) * _normal;
-            Vector3 offset = directionMove * _characterData.GetMoveSpeed * Time.deltaTime;
+            _characterState = newState;
+            _characterState.Enter();
+        }
 
-            _rigidbody.MovePosition(_rigidbody.position + offset);
+        private ICharacterState GetState<T>() where T : ICharacterState
+        {
+            var type = typeof(T);
+            return _stateMap[type];
+        }
+
+        private void SetStateByDefault()
+        {
+            var stateByDefault = GetState<IdleState>();
+            SetState(stateByDefault);
         }
 
         private void OnCollisionEnter(Collision collision)
         {
+            _collision = collision;
+            
             if (collision.transform.CompareTag("Ground"))
             {
                 _normal = collision.contacts[0].normal;
             }
+        }
+
+        private void OnCollisionExit (Collision collision)
+        {
+            _collision = null;
         }
 
 #if UNITY_EDITOR

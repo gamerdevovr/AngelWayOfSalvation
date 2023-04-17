@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using AngelWayOfSalvation.Core.Character;
 using UnityEngine;
 
-public class IdleState : MonoBehaviour
+public class IdleState : ICharacterState
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public void Enter()
     {
-        
+        Debug.Log("Enter Idle State");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Exit()
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+    public void UpdateState(GameObject gameObject)
+    {
+        throw new System.NotImplementedException();
     }
 }

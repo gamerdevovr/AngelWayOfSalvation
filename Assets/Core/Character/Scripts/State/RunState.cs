@@ -1,18 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
+using AngelWayOfSalvation.Core.Character;
 using UnityEngine;
 
-public class RunState : MonoBehaviour
+public class RunState : ICharacterState
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Enter()
     {
-        
+        Debug.Log("Enter Run State");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Exit()
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+    public void UpdateState(GameObject gameObject)
+    {
+
+        //if (Vector3.Angle(Vector3.forward, direction) > 1f || Vector3.Angle(Vector3.forward, direction) == 0)
+        //{
+        //    Vector3 direct = Vector3.RotateTowards(gameObject.transform.forward, direction, _characterData.GetMoveSpeed, 0f);
+        //    gameObject.transform.rotation = Quaternion.LookRotation(direct);
+        //}
+
+        //Vector3 directionMove = direction.normalized - Vector3.Dot(direction.normalized, _normal) * _normal;
+        //Vector3 offset = directionMove * _characterData.GetMoveSpeed * Time.deltaTime;
+
+        //_rigidbody.MovePosition(_rigidbody.position + offset);
     }
 }

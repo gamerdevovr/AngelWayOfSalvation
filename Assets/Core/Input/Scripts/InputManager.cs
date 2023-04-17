@@ -14,9 +14,14 @@ namespace AngelWayOfSalvation.Core.Input
 
         private void Awake()
         {
-            if (Instance != null)
-                Destroy(Instance.gameObject);
-            Instance = this as InputManager;
+            if (Instance == null)
+            {
+                Instance = this as InputManager;
+                DontDestroyOnLoad(gameObject);
+                return;
+            }
+                
+            Destroy(Instance.gameObject);
         }
 
         public Vector3 GetDirectionMove()

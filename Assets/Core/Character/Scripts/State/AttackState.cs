@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using AngelWayOfSalvation.Core.Character;
 using UnityEngine;
 
-public class AttackState : MonoBehaviour
+public class AttackState : ICharacterState
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Enter()
     {
-        
+        Debug.Log("Enter Attack State");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Exit()
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+    public void UpdateState(GameObject gameObject)
+    {
+        throw new System.NotImplementedException();
     }
 }
