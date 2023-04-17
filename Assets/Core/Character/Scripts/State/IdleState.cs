@@ -11,11 +11,11 @@ public class IdleState : ICharacterState
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Exit Idle State");
     }
 
     public void UpdateState(GameObject gameObject)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Update Idle State");
     }
 }

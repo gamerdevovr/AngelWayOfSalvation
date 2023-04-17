@@ -12,42 +12,28 @@ namespace AngelWayOfSalvation.Core.Character
 
         public Vector3 Direction { get; private set; }
 
-        private InputManager _inputManager => InputManager.Instance;
         private Rigidbody _rigidbody;
         private Collision _collision;
         private Vector3 _normal;
 
-        private Dictionary<Type, ICharacterState> _stateMap;
         private ICharacterState _characterState;
-
+        private IdleState _idleState = new IdleState();
+        private WalkState _walkState = new WalkState();
+        private RunState _runState = new RunState();
+        private AttackState _attackState = new AttackState();
+        private PrayState _prayState = new PrayState();
 
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            InitState();
-            SetStateByDefault();
+            SetState(_idleState);
         }
 
         private void Update()
         {
-            Direction = _inputManager.GetDirectionMove();
-
-            if (_characterState != null)
-            {
-                _characterState.UpdateState(gameObject);
-            }
+            _characterState.UpdateState(gameObject);
         }
 
-        private void InitState()
-        {
-            _stateMap = new Dictionary<Type, ICharacterState>();
-
-            _stateMap[typeof(IdleState)] = new IdleState();
-            _stateMap[typeof(WalkState)] = new WalkState();
-            _stateMap[typeof(RunState)] = new RunState();
-            _stateMap[typeof(AttackState)] = new AttackState();
-            _stateMap[typeof(PrayState)] = new PrayState();
-        }
 
         private void SetState(ICharacterState newState)
         {
@@ -60,17 +46,31 @@ namespace AngelWayOfSalvation.Core.Character
             _characterState.Enter();
         }
 
-        private ICharacterState GetState<T>() where T : ICharacterState
+        public void SetIdleState()
         {
-            var type = typeof(T);
-            return _stateMap[type];
+            SetState(_idleState);
         }
 
-        private void SetStateByDefault()
+        public void SetWalkState()
         {
-            var stateByDefault = GetState<IdleState>();
-            SetState(stateByDefault);
+            SetState(_walkState);
         }
+
+        public void SetRunState()
+        {
+            SetState(_runState);
+        }
+
+        public void SetAttackState()
+        {
+            SetState(_attackState);
+        }
+
+        public void SetPrayState()
+        {
+            SetState(_prayState);
+        }
+
 
         private void OnCollisionEnter(Collision collision)
         {

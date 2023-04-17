@@ -10,11 +10,11 @@ public class AttackState : ICharacterState
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Exit Attack State");
     }
 
     public void UpdateState(GameObject gameObject)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Update Attack State");
     }
 }

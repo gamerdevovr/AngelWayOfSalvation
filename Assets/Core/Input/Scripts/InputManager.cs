@@ -10,7 +10,7 @@ namespace AngelWayOfSalvation.Core.Input
 
         public static InputManager Instance;
 
-        public Vector3 _directionMove = new Vector3(0, 0, 0);
+        public event Action JumpPressedInputManager;
 
         private void Awake()
         {
@@ -24,22 +24,31 @@ namespace AngelWayOfSalvation.Core.Input
             Destroy(Instance.gameObject);
         }
 
+        private void OnEnable()
+        {
+            _inputKeyboard.JumpPressedInputKeyboard += PressedJump;
+        }
+
+        public void PressedJump()
+        {
+            Debug.Log("Jump - InputManager");
+            JumpPressedInputManager?.Invoke();
+        }
+
         public Vector3 GetDirectionMove()
         {
+            Vector3 directionMove = new Vector3(0, 0, 0);
+
             if (_inputJoystick.InputVector.x != 0 || _inputJoystick.InputVector.y != 0)
             {
-                _directionMove = new Vector3(_inputJoystick.InputVector.x, 0, _inputJoystick.InputVector.y);
+                directionMove = new Vector3(_inputJoystick.InputVector.x, 0, _inputJoystick.InputVector.y);
             }
             else if (_inputKeyboard.InputVector.x != 0 || _inputKeyboard.InputVector.y != 0)
             {
-                _directionMove = new Vector3(_inputKeyboard.InputVector.x, 0, _inputKeyboard.InputVector.y);
-            }
-            else
-            {
-                _directionMove = Vector3.zero;
+                directionMove = new Vector3(_inputKeyboard.InputVector.x, 0, _inputKeyboard.InputVector.y);
             }
 
-            return _directionMove;
+            return directionMove;
         }
     }
 }

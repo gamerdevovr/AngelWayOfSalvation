@@ -10,11 +10,12 @@ public class RunState : ICharacterState
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Exit Run State");
     }
 
     public void UpdateState(GameObject gameObject)
     {
+        Debug.Log("Update Run State");
 
         //if (Vector3.Angle(Vector3.forward, direction) > 1f || Vector3.Angle(Vector3.forward, direction) == 0)
         //{

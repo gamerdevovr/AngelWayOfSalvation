@@ -10,11 +10,11 @@ public class PrayState : ICharacterState
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Exit Pray State");
     }
 
     public void UpdateState(GameObject gameObject)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Update Pray State");
     }
 }
