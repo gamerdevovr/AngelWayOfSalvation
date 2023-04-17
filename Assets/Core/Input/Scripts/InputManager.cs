@@ -5,11 +5,12 @@ namespace AngelWayOfSalvation.Core.Input
 {
     public class InputManager : MonoBehaviour
     {
-        public Vector3 DirectionMove { get; private set; } = new Vector3(0, 0, 0);
-        public static InputManager Instance;
-
         [SerializeField] private InputJoystick _inputJoystick;
         [SerializeField] private InputKeyboard _inputKeyboard;
+
+        public static InputManager Instance;
+
+        public Vector3 _directionMove = new Vector3(0, 0, 0);
 
         private void Awake()
         {
@@ -18,16 +19,22 @@ namespace AngelWayOfSalvation.Core.Input
             Instance = this as InputManager;
         }
 
-        private void Update()
+        public Vector3 GetDirectionMove()
         {
             if (_inputJoystick.InputVector.x != 0 || _inputJoystick.InputVector.y != 0)
             {
-                DirectionMove = new Vector3(_inputJoystick.InputVector.x, 0, _inputJoystick.InputVector.y);
+                _directionMove = new Vector3(_inputJoystick.InputVector.x, 0, _inputJoystick.InputVector.y);
             }
             else if (_inputKeyboard.InputVector.x != 0 || _inputKeyboard.InputVector.y != 0)
             {
-                DirectionMove = new Vector3(_inputKeyboard.InputVector.x, 0, _inputKeyboard.InputVector.y);
+                _directionMove = new Vector3(_inputKeyboard.InputVector.x, 0, _inputKeyboard.InputVector.y);
             }
+            else
+            {
+                _directionMove = Vector3.zero;
+            }
+
+            return _directionMove;
         }
     }
 }
