@@ -7,28 +7,14 @@ namespace AngelWayOfSalvation.Core.Character
     {
         private InputManager _inputManager => InputManager.Instance;
         private Character _character;
-        private Vector2 _zeroVector2 = new Vector2(0, 0);
 
         private void Start()
         {
             _character = GetComponent<Character>();
 
             _inputManager.EventWalk += Walk;
-            _inputManager.EventJump += Walk;
-            _inputManager.EventWalk += Walk;
-        }
-
-        private void Update()
-        {
-            //Debug.Log(_inputManager.InputMove);
-            //if (_inputManager.InputMove == _zeroVector2)
-            //{
-            //    _character.SetIdleState();
-            //}
-            //else
-            //{
-            //    _character.SetWalkState();
-            //}
+            _inputManager.EventJump += Jump;
+            _inputManager.EventAttack += Attack;
         }
 
         private void Walk() => _character.SetWalkState();

@@ -13,22 +13,22 @@ public class WalkState : ICharacterState
     {
         _character = character;
         _rigidbody = character.GetComponent<Rigidbody>();
-        _speed = character.GetWalkSpeed();
+        _speed = character.GetCharacterData().GetWalkSpeed();
     }
 
     public void Enter()
     {
-        Debug.Log("Enter Walk State");
+        //Debug.Log("Enter Walk State");
     }
 
     public void Exit()
     {
-        Debug.Log("Exit Walk State");
+        //Debug.Log("Exit Walk State");
     }
 
     public void UpdateState()
     {
-        Debug.Log("Update Walk State");
+        //Debug.Log("Update Walk State");
 
         Vector3 direction = new Vector3(_inputManager.InputMove.x, 0f, _inputManager.InputMove.y);
         Vector3 normal = _character.Normal;

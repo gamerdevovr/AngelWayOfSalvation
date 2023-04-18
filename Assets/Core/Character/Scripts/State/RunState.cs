@@ -13,7 +13,7 @@ public class RunState : ICharacterState
     {
         _character = character;
         _rigidbody = character.GetComponent<Rigidbody>();
-        _speed = character.GetRunSpeed();
+        _speed = character.GetCharacterData().GetRunSpeed();
     }
 
     public void Enter()

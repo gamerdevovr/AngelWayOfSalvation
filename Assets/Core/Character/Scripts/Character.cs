@@ -20,17 +20,19 @@ namespace AngelWayOfSalvation.Core.Character
         public void SetIdleState() => SetState(_idleState);
         public void SetWalkState() => SetState(_walkState);
         public void SetRunState() => SetState(_runState);
-        public void SetJumpState() => SetState(_runState);
+        public void SetJumpState() => SetState(_jumpState);
         public void SetAttackState() => SetState(_attackState);
         public void SetPrayState() => SetState(_prayState);
-        public float GetWalkSpeed() => _characterData.GetWalkSpeed();
-        public float GetRunSpeed() => _characterData.GetRunSpeed();
 
+        public CharacterData GetCharacterData() => _characterData;
+
+        
         private void Start()
         {
             _idleState = new IdleState();
             _walkState = new WalkState(this);
             _runState = new RunState(this);
+            _jumpState = new JumpState(this);
             _attackState = new AttackState();
             _prayState = new PrayState();
 

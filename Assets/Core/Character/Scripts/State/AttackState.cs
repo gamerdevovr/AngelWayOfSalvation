@@ -5,16 +5,16 @@ public class AttackState : ICharacterState
 {
     public void Enter()
     {
-        Debug.Log("Enter Attack State");
+        //Debug.Log("Enter Attack State");
     }
 
     public void Exit()
     {
-        Debug.Log("Exit Attack State");
+        //Debug.Log("Exit Attack State");
     }
 
     public void UpdateState()
     {
-        Debug.Log("Update Attack State");
+        //Debug.Log("Update Attack State");
     }
 }
