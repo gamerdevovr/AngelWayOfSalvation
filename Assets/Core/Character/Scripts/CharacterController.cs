@@ -13,19 +13,9 @@ namespace AngelWayOfSalvation.Core.Character
             _character = GetComponent<Character>();
         }
 
-        private void OnEnable()
-        {
-            _inputManager.JumpPressedInputManager += Jump;
-        }
-
         private void Update()
         {
-            Debug.Log(_inputManager.GetDirectionMove());
-        }
-
-        private void Jump()
-        {
-            Debug.Log("Jump - CharacterController");
+            Debug.Log(_inputManager.InputMove);
         }
     }
 }

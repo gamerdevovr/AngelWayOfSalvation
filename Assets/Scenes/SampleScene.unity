@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 325815655}
   - component: {fileID: 325815656}
+  - component: {fileID: 325815657}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -169,8 +170,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691f7989e4981584589fb80b3e654c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputJoystick: {fileID: 1387903473}
-  _inputKeyboard: {fileID: 1328047119}
+--- !u!114 &325815657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325815654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: bc713a2458741fa4cb086c0585c01fbc, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Main
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &593307146
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +675,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328047117}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca5fb5872935fc048b60d33a6e67e92c, type: 3}
   m_Name: 
@@ -662,7 +691,6 @@ GameObject:
   - component: {fileID: 1387903472}
   - component: {fileID: 1387903475}
   - component: {fileID: 1387903474}
-  - component: {fileID: 1387903473}
   m_Layer: 5
   m_Name: InputJoystick
   m_TagString: Untagged
@@ -691,21 +719,6 @@ RectTransform:
   m_AnchoredPosition: {x: -180, y: -80}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1387903473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387903471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e47c54e3dc10dd140a01cd45cb5422e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scaleInputVector: 2
-  _inputJoystick: {fileID: 1387903474}
-  _buttonJoystick: {fileID: 1844741631}
 --- !u!114 &1387903474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,6 +869,7 @@ GameObject:
   - component: {fileID: 1844741630}
   - component: {fileID: 1844741632}
   - component: {fileID: 1844741631}
+  - component: {fileID: 1844741633}
   m_Layer: 5
   m_Name: ButtonJoystick
   m_TagString: Untagged
@@ -921,6 +935,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844741629}
   m_CullTransparentMesh: 1
+--- !u!114 &1844741633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844741629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovementRange: 32
+  m_ControlPath: <Gamepad>/leftStick
 --- !u!1 &1998563179
 GameObject:
   m_ObjectHideFlags: 0

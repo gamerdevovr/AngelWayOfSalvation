@@ -5,12 +5,11 @@ namespace AngelWayOfSalvation.Core.Input
 {
     public class InputManager : MonoBehaviour
     {
-        [SerializeField] private InputJoystick _inputJoystick;
-        [SerializeField] private InputKeyboard _inputKeyboard;
-
         public static InputManager Instance;
 
-        public event Action JumpPressedInputManager;
+        public Vector2 InputMove { get; private set; }
+        
+        private Controls _controls;
 
         private void Awake()
         {
@@ -20,35 +19,39 @@ namespace AngelWayOfSalvation.Core.Input
                 DontDestroyOnLoad(gameObject);
                 return;
             }
-                
             Destroy(Instance.gameObject);
+
+            _controls = new Controls();
+            _controls.Main.Jump.performed += context => Jump();
         }
 
         private void OnEnable()
         {
-            _inputKeyboard.JumpPressedInputKeyboard += PressedJump;
-        }
-
-        public void PressedJump()
-        {
-            Debug.Log("Jump - InputManager");
-            JumpPressedInputManager?.Invoke();
-        }
-
-        public Vector3 GetDirectionMove()
-        {
-            Vector3 directionMove = new Vector3(0, 0, 0);
-
-            if (_inputJoystick.InputVector.x != 0 || _inputJoystick.InputVector.y != 0)
+            if (_controls == null)
             {
-                directionMove = new Vector3(_inputJoystick.InputVector.x, 0, _inputJoystick.InputVector.y);
+                Debug.LogWarning("Controls are not initialized yet");
             }
-            else if (_inputKeyboard.InputVector.x != 0 || _inputKeyboard.InputVector.y != 0)
+            else
             {
-                directionMove = new Vector3(_inputKeyboard.InputVector.x, 0, _inputKeyboard.InputVector.y);
+                _controls.Enable();
             }
-
-            return directionMove;
         }
+
+
+        private void OnDisable() => _controls.Disable();
+
+        private void Update()
+        {
+            float horizontal = _controls.Main.Horizontal.ReadValue<float>();
+            float vertical = _controls.Main.Vertical.ReadValue<float>();
+
+            InputMove = new Vector2(horizontal, vertical);
+        }
+
+        private void Jump()
+        {
+            Debug.Log("Jump - InputKeyboard");
+        }
+
     }
 }

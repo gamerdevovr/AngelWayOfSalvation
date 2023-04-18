@@ -23,29 +23,6 @@ namespace AngelWayOfSalvation.Core.Character
         private AttackState _attackState = new AttackState();
         private PrayState _prayState = new PrayState();
 
-        private void Start()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-            SetState(_idleState);
-        }
-
-        private void Update()
-        {
-            _characterState.UpdateState(gameObject);
-        }
-
-
-        private void SetState(ICharacterState newState)
-        {
-            if (_characterState != null)
-            {
-                _characterState.Exit();
-            }
-
-            _characterState = newState;
-            _characterState.Enter();
-        }
-
         public void SetIdleState()
         {
             SetState(_idleState);
@@ -71,6 +48,28 @@ namespace AngelWayOfSalvation.Core.Character
             SetState(_prayState);
         }
 
+        private void Start()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+            SetState(_idleState);
+        }
+
+        private void Update()
+        {
+            _characterState.UpdateState(gameObject);
+        }
+
+
+        private void SetState(ICharacterState newState)
+        {
+            if (_characterState != null)
+            {
+                _characterState.Exit();
+            }
+
+            _characterState = newState;
+            _characterState.Enter();
+        }
 
         private void OnCollisionEnter(Collision collision)
         {
