@@ -6,6 +6,6 @@ namespace AngelWayOfSalvation.Core.Character
     {
         void Enter();
         void Exit();
-        void UpdateState(GameObject gameObject);
+        void UpdateState();
     }
 }

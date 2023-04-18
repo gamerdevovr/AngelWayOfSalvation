@@ -1,20 +1,20 @@
 using AngelWayOfSalvation.Core.Character;
 using UnityEngine;
 
-public class AttackState : ICharacterState
+public class JumpState : ICharacterState
 {
     public void Enter()
     {
-        Debug.Log("Enter Attack State");
+        Debug.Log("Enter Run State");
     }
 
     public void Exit()
     {
-        Debug.Log("Exit Attack State");
+        Debug.Log("Exit Run State");
     }
 
     public void UpdateState()
     {
-        Debug.Log("Update Attack State");
+        Debug.Log("Update Run State");
     }
 }

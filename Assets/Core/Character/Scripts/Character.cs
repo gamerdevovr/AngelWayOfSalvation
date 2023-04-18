@@ -1,6 +1,3 @@
-using AngelWayOfSalvation.Core.Input;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AngelWayOfSalvation.Core.Character
@@ -9,59 +6,50 @@ namespace AngelWayOfSalvation.Core.Character
     public class Character : MonoBehaviour
     {
         [SerializeField] private CharacterData _characterData;
+        public Vector3 Normal { get; private set; }
 
-        public Vector3 Direction { get; private set; }
-
-        private Rigidbody _rigidbody;
         private Collision _collision;
-        private Vector3 _normal;
-
         private ICharacterState _characterState;
-        private IdleState _idleState = new IdleState();
-        private WalkState _walkState = new WalkState();
-        private RunState _runState = new RunState();
-        private AttackState _attackState = new AttackState();
-        private PrayState _prayState = new PrayState();
+        private IdleState _idleState;
+        private WalkState _walkState;
+        private RunState _runState;
+        private JumpState _jumpState;
+        private AttackState _attackState;
+        private PrayState _prayState;
 
-        public void SetIdleState()
-        {
-            SetState(_idleState);
-        }
-
-        public void SetWalkState()
-        {
-            SetState(_walkState);
-        }
-
-        public void SetRunState()
-        {
-            SetState(_runState);
-        }
-
-        public void SetAttackState()
-        {
-            SetState(_attackState);
-        }
-
-        public void SetPrayState()
-        {
-            SetState(_prayState);
-        }
+        public void SetIdleState() => SetState(_idleState);
+        public void SetWalkState() => SetState(_walkState);
+        public void SetRunState() => SetState(_runState);
+        public void SetJumpState() => SetState(_runState);
+        public void SetAttackState() => SetState(_attackState);
+        public void SetPrayState() => SetState(_prayState);
+        public float GetWalkSpeed() => _characterData.GetWalkSpeed();
+        public float GetRunSpeed() => _characterData.GetRunSpeed();
 
         private void Start()
         {
-            _rigidbody = GetComponent<Rigidbody>();
+            _idleState = new IdleState();
+            _walkState = new WalkState(this);
+            _runState = new RunState(this);
+            _attackState = new AttackState();
+            _prayState = new PrayState();
+
             SetState(_idleState);
         }
 
         private void Update()
         {
-            _characterState.UpdateState(gameObject);
+            _characterState.UpdateState();
         }
 
 
         private void SetState(ICharacterState newState)
         {
+            if (_characterState == newState)
+            {
+                return;
+            }
+
             if (_characterState != null)
             {
                 _characterState.Exit();
@@ -77,7 +65,7 @@ namespace AngelWayOfSalvation.Core.Character
             
             if (collision.transform.CompareTag("Ground"))
             {
-                _normal = collision.contacts[0].normal;
+                Normal = collision.contacts[0].normal;
             }
         }
 
@@ -90,9 +78,9 @@ namespace AngelWayOfSalvation.Core.Character
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.white;
-            Gizmos.DrawLine(transform.position, transform.position + _normal * 3);
+            Gizmos.DrawLine(transform.position, transform.position + Normal * 3);
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + (transform.forward * 2) - Vector3.Dot(transform.forward, _normal) * _normal);
+            Gizmos.DrawLine(transform.position, transform.position + (transform.forward * 2) - Vector3.Dot(transform.forward, Normal) * Normal);
         }
 #endif
     }

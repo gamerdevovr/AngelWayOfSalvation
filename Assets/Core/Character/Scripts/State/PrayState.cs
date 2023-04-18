@@ -13,7 +13,7 @@ public class PrayState : ICharacterState
         Debug.Log("Exit Pray State");
     }
 
-    public void UpdateState(GameObject gameObject)
+    public void UpdateState()
     {
         Debug.Log("Update Pray State");
     }

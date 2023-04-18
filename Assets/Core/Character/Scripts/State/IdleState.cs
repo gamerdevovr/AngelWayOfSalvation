@@ -14,7 +14,7 @@ public class IdleState : ICharacterState
         Debug.Log("Exit Idle State");
     }
 
-    public void UpdateState(GameObject gameObject)
+    public void UpdateState()
     {
         Debug.Log("Update Idle State");
     }

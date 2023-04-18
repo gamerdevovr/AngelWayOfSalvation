@@ -6,6 +6,10 @@ namespace AngelWayOfSalvation.Core.Input
     public class InputManager : MonoBehaviour
     {
         public static InputManager Instance;
+        
+        public event Action EventWalk;
+        public event Action EventJump;
+        public event Action EventAttack;
 
         public Vector2 InputMove { get; private set; }
         
@@ -13,6 +17,12 @@ namespace AngelWayOfSalvation.Core.Input
 
         private void Awake()
         {
+            _controls = new Controls();
+
+            _controls.Main.Move.performed += context => Walk();
+            _controls.Main.Jump.performed += context => Jump();
+            _controls.Main.Attack.performed += context => Attack();
+
             if (Instance == null)
             {
                 Instance = this as InputManager;
@@ -20,38 +30,18 @@ namespace AngelWayOfSalvation.Core.Input
                 return;
             }
             Destroy(Instance.gameObject);
-
-            _controls = new Controls();
-            _controls.Main.Jump.performed += context => Jump();
         }
-
-        private void OnEnable()
-        {
-            if (_controls == null)
-            {
-                Debug.LogWarning("Controls are not initialized yet");
-            }
-            else
-            {
-                _controls.Enable();
-            }
-        }
-
-
-        private void OnDisable() => _controls.Disable();
 
         private void Update()
         {
-            float horizontal = _controls.Main.Horizontal.ReadValue<float>();
-            float vertical = _controls.Main.Vertical.ReadValue<float>();
-
-            InputMove = new Vector2(horizontal, vertical);
+            InputMove = _controls.Main.Move.ReadValue<Vector2>();
         }
 
-        private void Jump()
-        {
-            Debug.Log("Jump - InputKeyboard");
-        }
+        private void OnEnable() => _controls.Enable();
+        private void OnDisable() => _controls.Disable();
+        private void Walk() => EventWalk?.Invoke();
+        private void Jump() => EventJump?.Invoke();
+        private void Attack() => EventAttack?.Invoke();
 
     }
 }
