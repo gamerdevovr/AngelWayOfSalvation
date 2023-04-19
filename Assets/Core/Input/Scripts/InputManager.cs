@@ -10,6 +10,8 @@ namespace AngelWayOfSalvation.Core.Input
         public event Action EventWalk;
         public event Action EventJump;
         public event Action EventAttack;
+        public event Action EventPray;
+        public event Action EventIdle;
 
         public Vector2 InputMove { get; private set; }
         
@@ -20,8 +22,10 @@ namespace AngelWayOfSalvation.Core.Input
             _controls = new Controls();
 
             _controls.Main.Move.performed += context => Walk();
+            _controls.Main.Move.canceled += context => Idle();
             _controls.Main.Jump.performed += context => Jump();
             _controls.Main.Attack.performed += context => Attack();
+            _controls.Main.Pray.performed += context => Pray();
 
             if (Instance == null)
             {
@@ -40,8 +44,10 @@ namespace AngelWayOfSalvation.Core.Input
         private void OnEnable() => _controls.Enable();
         private void OnDisable() => _controls.Disable();
         private void Walk() => EventWalk?.Invoke();
+        private void Idle() => EventIdle?.Invoke();
         private void Jump() => EventJump?.Invoke();
         private void Attack() => EventAttack?.Invoke();
+        private void Pray() => EventPray?.Invoke();
 
     }
 }

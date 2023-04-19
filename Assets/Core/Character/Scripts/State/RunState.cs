@@ -8,41 +8,68 @@ public class RunState : ICharacterState
     private Character _character;
     private Rigidbody _rigidbody;
     private float _speed;
+    private Collision _collision;
 
     public RunState(Character character)
     {
         _character = character;
         _rigidbody = character.GetComponent<Rigidbody>();
-        _speed = character.GetCharacterData().GetRunSpeed();
+        _speed = character.GetCharacterData().GetWalkSpeed();
+        _collision = _character.Collision;
     }
 
     public void Enter()
     {
-        Debug.Log("Enter Walk State");
+        //Debug.Log("Enter Walk State");
     }
 
     public void Exit()
     {
-        Debug.Log("Exit Walk State");
+        //Debug.Log("Exit Walk State");
     }
 
     public void UpdateState()
     {
-        Debug.Log("Update Walk State");
-
-        Vector3 direction = new Vector3(_inputManager.InputMove.x, 0f, _inputManager.InputMove.y);
-        Vector3 normal = _character.Normal;
-
-        if (Vector3.Angle(Vector3.forward, direction) > 1f || Vector3.Angle(Vector3.forward, direction) == 0)
+        //Debug.Log("Update Walk State");
+        if (_collision != null)
         {
-            Vector3 direct = Vector3.RotateTowards(_character.transform.forward, direction, _speed, 0f);
-            _character.transform.rotation = Quaternion.LookRotation(direct);
+            Vector3 direction = GetDirection();
+            Vector3 normal = GetNormal();
+
+            RotateCharacter(direction);
+
+            Vector3 directionMove = Vector3.ProjectOnPlane(direction, normal).normalized;
+            Vector3 offset = directionMove * _speed * Time.deltaTime;
+
+            _rigidbody.MovePosition(_rigidbody.position + offset);
+        }
+    }
+
+    private Vector3 GetDirection()
+    {
+        float x = _inputManager.InputMove.x;
+        float z = _inputManager.InputMove.y;
+
+        return new Vector3(x, 0f, z);
+    }
+
+    private Vector3 GetNormal()
+    {
+        if (_collision.transform.CompareTag("Ground"))
+        {
+            return _collision.contacts[0].normal;
         }
 
-        Vector3 directionMove = direction.normalized - Vector3.Dot(direction.normalized, normal) * normal;
-        Vector3 offset = directionMove * _speed * Time.deltaTime;
+        return Vector3.zero;
+    }
 
-        _rigidbody.MovePosition(_rigidbody.position + offset);
+    private void RotateCharacter(Vector3 direction)
+    {
+        float angle = Vector3.Angle(Vector3.forward, direction);
 
+        if (angle >= 1f || angle == 0)
+        {
+            _character.transform.rotation = Quaternion.LookRotation(direction);
+        }
     }
 }

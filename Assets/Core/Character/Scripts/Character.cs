@@ -8,11 +8,11 @@ namespace AngelWayOfSalvation.Core.Character
     {
         [SerializeField] private CharacterData _characterData;
 
-        public Vector3 Normal { get; private set; }
-        public Collision _collision { get; private set; }
+        public Collision Collision { get; private set; }
 
         private ICharacterState _characterState;
         private Dictionary<CharacterStateType, ICharacterState> _states;
+        private Vector3 _normal;
 
         public CharacterData GetCharacterData() => _characterData;
 
@@ -43,24 +43,16 @@ namespace AngelWayOfSalvation.Core.Character
             SetState(CharacterStateType.Idle);
         }
 
-        private void Update()
+        //private void Update() => _characterState.UpdateState();
+        private void FixedUpdate()
         {
             _characterState.UpdateState();
+            Debug.Log(_characterState.ToString());
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            _collision = collision;
+        private void OnCollisionEnter(Collision collision) => Collision = collision;
 
-            if (collision.transform.CompareTag("Ground"))
-            {
-                Normal = collision.contacts[0].normal;
-            }
-        }
+        private void OnCollisionExit(Collision collision) => Collision = null;
 
-        private void OnCollisionExit(Collision collision)
-        {
-            _collision = null;
-        }
     }
 }
