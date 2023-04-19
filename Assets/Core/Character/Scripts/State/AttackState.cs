@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class AttackState : ICharacterState
 {
+    public AttackState(Character character)
+    {
+
+    }
+
     public void Enter()
     {
         //Debug.Log("Enter Attack State");

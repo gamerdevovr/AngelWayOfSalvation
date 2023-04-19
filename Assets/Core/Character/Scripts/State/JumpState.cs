@@ -25,7 +25,7 @@ public class JumpState : ICharacterState
 
         _rigidbody.AddForce(jumpDirection, ForceMode.Impulse);
 
-        _character.SetIdleState();
+        _character.SetState(CharacterStateType.Idle);
     }
 
     public void Exit()

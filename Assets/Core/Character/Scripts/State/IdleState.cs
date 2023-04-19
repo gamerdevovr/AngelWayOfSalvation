@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class IdleState : ICharacterState
 {
+    public IdleState(Character character)
+    {
+
+    }
 
     public void Enter()
     {

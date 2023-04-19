@@ -17,8 +17,8 @@ namespace AngelWayOfSalvation.Core.Character
             _inputManager.EventAttack += Attack;
         }
 
-        private void Walk() => _character.SetWalkState();
-        private void Jump() => _character.SetJumpState();
-        private void Attack() => _character.SetWalkState();
+        private void Walk() => _character.SetState(CharacterStateType.Walk);
+        private void Jump() => _character.SetState(CharacterStateType.Jump);
+        private void Attack() => _character.SetState(CharacterStateType.Attack);
     }
 }

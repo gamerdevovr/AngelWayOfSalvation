@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class PrayState : ICharacterState
 {
+    public PrayState(Character character)
+    {
+
+    }
+
     public void Enter()
     {
         Debug.Log("Enter Pray State");
