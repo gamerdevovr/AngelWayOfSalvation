@@ -37,7 +37,7 @@ public class MoveState : ICharacterState
 
         if (_collision != null)
         {
-            Debug.Log("Update Walk State");
+            //Debug.Log("Update Walk State, speed: " + _speed);
 
             Vector3 direction = GetDirection();
             Vector3 normal = GetNormal();
@@ -80,12 +80,14 @@ public class MoveState : ICharacterState
     }
 
     private void SetWalk()
-    { 
+    {
         _speed = _character.GetCharacterData().GetWalkSpeed();
+        Debug.Log("Walk_speed: " + _speed);
     }
 
     private void SetRun()
     {
-        _character.GetCharacterData().GetRunSpeed();
+        _speed = _character.GetCharacterData().GetRunSpeed();
+        Debug.Log("Run_speed: " + _speed);
     }
 }

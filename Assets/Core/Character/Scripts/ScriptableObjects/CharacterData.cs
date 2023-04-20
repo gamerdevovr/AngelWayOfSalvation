@@ -9,7 +9,7 @@ public class CharacterData : ScriptableObject
     [SerializeField] private byte _health;
 
     public float GetWalkSpeed() => _walkSpeed;
-    public float GetRunSpeed() => _walkSpeed;
+    public float GetRunSpeed() => _runSpeed;
     public float GetJumpForse() => _jumpForse;
     public byte GetHealth() => _health;
 }
