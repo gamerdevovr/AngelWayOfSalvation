@@ -62,6 +62,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0e189a0-5df4-47b7-89f3-484691208f51"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -306,6 +315,28 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Pray"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e50bc34-3eb4-4a01-b501-f81f736505a6"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""315d0e19-9f5e-49e1-9483-5e2ee5757d76"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -346,6 +377,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Main_Jump = m_Main.FindAction("Jump", throwIfNotFound: true);
         m_Main_Attack = m_Main.FindAction("Attack", throwIfNotFound: true);
         m_Main_Pray = m_Main.FindAction("Pray", throwIfNotFound: true);
+        m_Main_Run = m_Main.FindAction("Run", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -409,6 +441,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_Jump;
     private readonly InputAction m_Main_Attack;
     private readonly InputAction m_Main_Pray;
+    private readonly InputAction m_Main_Run;
     public struct MainActions
     {
         private @Controls m_Wrapper;
@@ -417,6 +450,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Main_Jump;
         public InputAction @Attack => m_Wrapper.m_Main_Attack;
         public InputAction @Pray => m_Wrapper.m_Main_Pray;
+        public InputAction @Run => m_Wrapper.m_Main_Run;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -438,6 +472,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Pray.started -= m_Wrapper.m_MainActionsCallbackInterface.OnPray;
                 @Pray.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnPray;
                 @Pray.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnPray;
+                @Run.started -= m_Wrapper.m_MainActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnRun;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -454,6 +491,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Pray.started += instance.OnPray;
                 @Pray.performed += instance.OnPray;
                 @Pray.canceled += instance.OnPray;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
         }
     }
@@ -482,5 +522,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnPray(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
 }

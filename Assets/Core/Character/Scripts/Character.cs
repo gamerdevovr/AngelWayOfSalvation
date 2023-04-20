@@ -33,8 +33,7 @@ namespace AngelWayOfSalvation.Core.Character
             _states = new Dictionary<CharacterStateType, ICharacterState>()
             {
                 { CharacterStateType.Idle, new IdleState(this) },
-                { CharacterStateType.Walk, new WalkState(this) },
-                { CharacterStateType.Run, new RunState(this) },
+                { CharacterStateType.Move, new MoveState(this) },
                 { CharacterStateType.Jump, new JumpState(this) },
                 { CharacterStateType.Attack, new AttackState(this) },
                 { CharacterStateType.Pray, new PrayState(this) }
@@ -44,13 +43,17 @@ namespace AngelWayOfSalvation.Core.Character
         }
 
         //private void Update() => _characterState.UpdateState();
-        private void FixedUpdate()
+        private void Update()
         {
             _characterState.UpdateState();
-            Debug.Log(_characterState.ToString());
+            //Debug.Log(_characterState.ToString());
         }
 
-        private void OnCollisionEnter(Collision collision) => Collision = collision;
+        private void OnCollisionEnter(Collision collision)//=> Collision = collision;
+        {
+            Collision = collision;
+            //Debug.Log(Collision.gameObject.tag);
+        }
 
         private void OnCollisionExit(Collision collision) => Collision = null;
 

@@ -19,7 +19,7 @@ namespace AngelWayOfSalvation.Core.Character
             _inputManager.EventPray += Pray;
         }
 
-        private void Walk() => _character.SetState(CharacterStateType.Walk);
+        private void Walk() => _character.SetState(CharacterStateType.Move);
         private void Idle() => _character.SetState(CharacterStateType.Idle);
         private void Jump() => _character.SetState(CharacterStateType.Jump);
         private void Attack() => _character.SetState(CharacterStateType.Attack);

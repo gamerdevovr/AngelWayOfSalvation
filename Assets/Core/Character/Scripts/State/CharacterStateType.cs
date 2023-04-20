@@ -1,8 +1,7 @@
 public enum CharacterStateType
 {
     Idle,
-    Walk,
-    Run,
+    Move,
     Jump,
     Attack,
     Pray

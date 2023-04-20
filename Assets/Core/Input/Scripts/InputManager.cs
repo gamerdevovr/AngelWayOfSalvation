@@ -8,6 +8,8 @@ namespace AngelWayOfSalvation.Core.Input
         public static InputManager Instance;
         
         public event Action EventWalk;
+        public event Action EventInRun;
+        public event Action EventOutRun;
         public event Action EventJump;
         public event Action EventAttack;
         public event Action EventPray;
@@ -23,6 +25,8 @@ namespace AngelWayOfSalvation.Core.Input
 
             _controls.Main.Move.performed += context => Walk();
             _controls.Main.Move.canceled += context => Idle();
+            _controls.Main.Run.performed += context => InRun();
+            _controls.Main.Run.canceled += context => OutRun();
             _controls.Main.Jump.performed += context => Jump();
             _controls.Main.Attack.performed += context => Attack();
             _controls.Main.Pray.performed += context => Pray();
@@ -45,6 +49,8 @@ namespace AngelWayOfSalvation.Core.Input
         private void OnDisable() => _controls.Disable();
         private void Walk() => EventWalk?.Invoke();
         private void Idle() => EventIdle?.Invoke();
+        private void InRun() => EventInRun?.Invoke();
+        private void OutRun() => EventOutRun?.Invoke();
         private void Jump() => EventJump?.Invoke();
         private void Attack() => EventAttack?.Invoke();
         private void Pray() => EventPray?.Invoke();

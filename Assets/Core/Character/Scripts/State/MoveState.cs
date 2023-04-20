@@ -2,7 +2,7 @@ using AngelWayOfSalvation.Core.Character;
 using AngelWayOfSalvation.Core.Input;
 using UnityEngine;
 
-public class WalkState : ICharacterState
+public class MoveState : ICharacterState
 {
     private InputManager _inputManager => InputManager.Instance;
     private Character _character;
@@ -10,12 +10,15 @@ public class WalkState : ICharacterState
     private float _speed;
     private Collision _collision;
 
-    public WalkState(Character character)
+    public MoveState(Character character)
     {
         _character = character;
         _rigidbody = character.GetComponent<Rigidbody>();
         _speed = character.GetCharacterData().GetWalkSpeed();
         _collision = _character.Collision;
+
+        _inputManager.EventOutRun += SetWalk;
+        _inputManager.EventInRun += SetRun;
     }
 
     public void Enter()
@@ -30,9 +33,12 @@ public class WalkState : ICharacterState
 
     public void UpdateState()
     {
-        //Debug.Log("Update Walk State");
+        _collision = _character.Collision;
+
         if (_collision != null)
         {
+            Debug.Log("Update Walk State");
+
             Vector3 direction = GetDirection();
             Vector3 normal = GetNormal();
 
@@ -71,5 +77,15 @@ public class WalkState : ICharacterState
         {
             _character.transform.rotation = Quaternion.LookRotation(direction);
         }
+    }
+
+    private void SetWalk()
+    { 
+        _speed = _character.GetCharacterData().GetWalkSpeed();
+    }
+
+    private void SetRun()
+    {
+        _character.GetCharacterData().GetRunSpeed();
     }
 }
