@@ -8,8 +8,8 @@ public class CharacterData : ScriptableObject
     [SerializeField] private byte _jumpForse;
     [SerializeField] private byte _health;
 
-    public float GetWalkSpeed() => _walkSpeed;
-    public float GetRunSpeed() => _runSpeed;
-    public float GetJumpForse() => _jumpForse;
+    public byte GetWalkSpeed() => _walkSpeed;
+    public byte GetRunSpeed() => _runSpeed;
+    public byte GetJumpForse() => _jumpForse;
     public byte GetHealth() => _health;
 }
