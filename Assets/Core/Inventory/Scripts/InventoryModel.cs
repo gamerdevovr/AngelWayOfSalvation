@@ -5,10 +5,10 @@ namespace AngelWayOfSalvation.Core.Inventory
 {
     public class InventoryModel : MonoBehaviour
     {
-        private List<InventoryItemData> _itemList = new List<InventoryItemData>();
+        private List<ItemData> _itemList = new List<ItemData>();
 
-        public void AddItem(InventoryItemData item) => _itemList.Add(item);
-        public void RemoveItem(InventoryItemData item) => _itemList.Remove(item);
-        public List<InventoryItemData> GetItemList() => _itemList;
+        public void AddItem(ItemData item) => _itemList.Add(item);
+        public void RemoveItem(ItemData item) => _itemList.Remove(item);
+        public List<ItemData> GetItemList() => _itemList;
     }
 }

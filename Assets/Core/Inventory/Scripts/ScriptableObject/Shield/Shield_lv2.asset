@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092262c0e18705c40b1508f1d2d9dec2, type: 3}
-  m_Name: IceSword_1
+  m_Script: {fileID: 11500000, guid: 6ee57485c70a59840a07b521b0e2948d, type: 3}
+  m_Name: Shield_lv2
   m_EditorClassIdentifier: 
-  _name: Ice Sword lv.1
+  _prefab: {fileID: 0}
+  _type: 0
+  _name: Shield level 2
   _description: 
   _sprite: {fileID: 0}
-  _price: 3
-  _weight: 3
-  _damage: 30
+  _price: 4
+  _weight: 4
+  _protection: 2
