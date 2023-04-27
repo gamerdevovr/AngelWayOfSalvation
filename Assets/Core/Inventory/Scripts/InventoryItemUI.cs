@@ -1,16 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventoryItemUI : MonoBehaviour
 {
-    [SerializeField] private Image _itemImage;
-    [SerializeField] private Text _itemName;
-    [SerializeField] private int _itemWeight;
+    private Image _itemSprite;
+    private TextMeshProUGUI _itemLevel;
+    private int _itemWeight;
+
+    private void Awake()
+    {
+        _itemSprite = GetComponent<Image>();
+        _itemLevel = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+    }
 
     public void SetItem(ItemData item)
     {
-        _itemImage.sprite = item.GetSprite();
-        _itemName.text = item.GetItemName();
+        _itemSprite.sprite = item.GetSprite();
+        _itemLevel.text = item.GetLevel().ToString();
         _itemWeight = item.GetWeight();
     }
 }

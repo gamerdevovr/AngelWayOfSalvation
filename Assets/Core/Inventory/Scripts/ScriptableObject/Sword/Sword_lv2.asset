@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adea04a143eea6a4fb9d441c528c88b3, type: 3}
   m_Name: Sword_lv2
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 0}
+  _type: 0
+  _level: 2
   _name: Sword level 2
   _description: 
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 0cd4e56aa206e0d45b3acdf632e886e5, type: 3}
   _price: 3
   _weight: 3
   _damage: 3

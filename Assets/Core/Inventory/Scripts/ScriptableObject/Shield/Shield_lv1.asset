@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee57485c70a59840a07b521b0e2948d, type: 3}
   m_Name: Shield_lv1
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 0}
+  _type: 0
+  _level: 1
   _name: Shield level 1
   _description: 
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 3042b019b052942a1baf7aa49d7ca6bb, type: 3}
   _price: 2
   _weight: 2
   _protection: 1
