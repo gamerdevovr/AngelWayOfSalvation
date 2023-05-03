@@ -6,6 +6,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private List<ItemData> _items;
     [SerializeField] private InventoryItemUI _inventoryItemUI;
     [SerializeField] private Transform _container;
+    [SerializeField] private Transform _draggingParant;
 
     public void OnEnable()
     {
@@ -22,6 +23,7 @@ public class Inventory : MonoBehaviour
         items.ForEach(item =>
         {
             var cell = Instantiate(_inventoryItemUI, _container);
+            cell.Init(_draggingParant);
             cell.SetItem(item);
         });
     }
